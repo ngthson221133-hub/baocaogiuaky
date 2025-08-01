@@ -1,0 +1,218 @@
+<?php
+/* Smarty version 5.5.1, created on 2025-07-29 15:19:26
+  from 'file:templates/user_orders/view.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_6888ca5e923b96_36517587',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '0000d85d711e9fc9931f71db282cbdb1a6b426ff' => 
+    array (
+      0 => 'templates/user_orders/view.tpl',
+      1 => 1753775600,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_6888ca5e923b96_36517587 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\user_orders';
+$_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
+?>
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_21165595256888ca5e8fcae8_44392764', 'title');
+?>
+
+<?php 
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_11017132266888ca5e903975_12484446', 'content');
+?>
+ <?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "../layout_home.tpl", $_smarty_current_dir);
+}
+/* {block 'title'} */
+class Block_21165595256888ca5e8fcae8_44392764 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\user_orders';
+?>
+Chi tiết đơn hàng #<?php echo $_smarty_tpl->getValue('order')['id'];
+}
+}
+/* {/block 'title'} */
+/* {block 'content'} */
+class Block_11017132266888ca5e903975_12484446 extends \Smarty\Runtime\Block
+{
+public function callBlock(\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\user_orders';
+?>
+
+<div style="max-width:1000px;margin:40px auto;padding:0 20px;">
+    <div style="display:flex;align-items:center;gap:15px;margin-bottom:30px;">
+        <a href="/itc_toi-main/index.php?controller=user_orders&action=index" style="padding:8px 16px;background:#6b7280;color:white;text-decoration:none;border-radius:6px;font-weight:500;" onmouseover="this.style.background='#4b5563'" onmouseout="this.style.background='#6b7280'">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
+        <h1 style="font-size:2.5em;font-weight:700;color:#1f2937;margin:0;">
+            <i class="fas fa-receipt"></i> Đơn hàng #<?php echo $_smarty_tpl->getValue('order')['id'];?>
+
+        </h1>
+    </div>
+    
+    <div style="background:#fff;padding:30px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);margin-bottom:30px;">
+        <h2 style="font-size:1.8em;font-weight:600;color:#1f2937;margin-bottom:25px;">
+            <i class="fas fa-info-circle"></i> Thông tin đơn hàng
+        </h2>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-bottom:30px;">
+            <div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Mã đơn hàng:</span>
+                    <span style="color:#22c55e;font-weight:600;font-size:1.1em;">#<?php echo $_smarty_tpl->getValue('order')['id'];?>
+</span>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Ngày đặt:</span>
+                    <span><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')['created_at'],'%d/%m/%Y %H:%M');?>
+</span>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Trạng thái:</span>
+                    <span>
+                        <?php if ($_smarty_tpl->getValue('order')['status'] == 'pending') {?>
+                            <span style="padding:4px 8px;background:#fef3c7;color:#92400e;border-radius:4px;font-size:0.9em;font-weight:500;">Chờ xử lý</span>
+                        <?php } elseif ($_smarty_tpl->getValue('order')['status'] == 'confirmed') {?>
+                            <span style="padding:4px 8px;background:#dbeafe;color:#1e40af;border-radius:4px;font-size:0.9em;font-weight:500;">Đã xác nhận</span>
+                        <?php } elseif ($_smarty_tpl->getValue('order')['status'] == 'shipped') {?>
+                            <span style="padding:4px 8px;background:#e9d5ff;color:#7c3aed;border-radius:4px;font-size:0.9em;font-weight:500;">Đang giao</span>
+                        <?php } elseif ($_smarty_tpl->getValue('order')['status'] == 'delivered') {?>
+                            <span style="padding:4px 8px;background:#dcfce7;color:#166534;border-radius:4px;font-size:0.9em;font-weight:500;">Đã giao</span>
+                        <?php } elseif ($_smarty_tpl->getValue('order')['status'] == 'cancelled') {?>
+                            <span style="padding:4px 8px;background:#fee2e2;color:#991b1b;border-radius:4px;font-size:0.9em;font-weight:500;">Đã hủy</span>
+                        <?php }?>
+                    </span>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Phương thức thanh toán:</span>
+                    <span>
+                        <?php if ($_smarty_tpl->getValue('order')['payment_method'] == 'cod') {?>
+                            Thanh toán khi nhận hàng
+                        <?php } elseif ($_smarty_tpl->getValue('order')['payment_method'] == 'bank_transfer') {?>
+                            Chuyển khoản ngân hàng
+                        <?php } else { ?>
+                            Thanh toán trực tuyến
+                        <?php }?>
+                    </span>
+                </div>
+            </div>
+            <div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Tổng tiền:</span>
+                    <span style="color:#22c55e;font-weight:600;font-size:1.2em;"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('order')['total_amount'],0,",",".");?>
+đ</span>
+                </div>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Cập nhật lần cuối:</span>
+                    <span><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')['updated_at'],'%d/%m/%Y %H:%M');?>
+</span>
+                </div>
+                <?php if ($_smarty_tpl->getValue('order')['notes']) {?>
+                <div style="margin-bottom:15px;">
+                    <span style="font-weight:600;color:#374151;">Ghi chú:</span>
+                    <div style="color:#6b7280;margin-top:5px;"><?php echo $_smarty_tpl->getValue('order')['notes'];?>
+</div>
+                </div>
+                <?php }?>
+            </div>
+        </div>
+        
+        <!-- Thông tin giao hàng -->
+        <h3 style="font-size:1.4em;font-weight:600;color:#1f2937;margin-bottom:20px;">
+            <i class="fas fa-truck"></i> Thông tin giao hàng
+        </h3>
+        <div style="background:#f9fafb;padding:20px;border-radius:8px;margin-bottom:30px;">
+            <div style="margin-bottom:10px;">
+                <span style="font-weight:600;color:#374151;">Địa chỉ giao hàng:</span>
+                <div style="color:#6b7280;margin-top:5px;"><?php echo $_smarty_tpl->getValue('order')['shipping_address'];?>
+</div>
+            </div>
+        </div>
+        
+        <!-- Chi tiết sản phẩm -->
+        <h3 style="font-size:1.4em;font-weight:600;color:#1f2937;margin-bottom:20px;">
+            <i class="fas fa-shopping-bag"></i> Chi tiết sản phẩm
+        </h3>
+        <?php if ($_smarty_tpl->getValue('items')) {?>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+                <table style="width:100%;border-collapse:collapse;">
+                    <thead style="background:#f9fafb;">
+                        <tr>
+                            <th style="padding:15px;text-align:left;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Sản phẩm</th>
+                            <th style="padding:15px;text-align:center;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Số lượng</th>
+                            <th style="padding:15px;text-align:right;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Đơn giá</th>
+                            <th style="padding:15px;text-align:right;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('items'), 'item');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('item')->value) {
+$foreach0DoElse = false;
+?>
+                        <tr style="border-bottom:1px solid #f3f4f6;">
+                            <td style="padding:15px;">
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    <div style="width:40px;height:40px;overflow:hidden;border-radius:6px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;">
+                                        <?php if ($_smarty_tpl->getValue('item')['image_url']) {?>
+                                            <img src="<?php echo $_smarty_tpl->getValue('item')['image_url'];?>
+" alt="<?php echo $_smarty_tpl->getValue('item')['product_name'];?>
+" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-image\' style=\'font-size:16px;color:#9ca3af;\'></i>'">
+                                        <?php } else { ?>
+                                            <i class="fas fa-image" style="font-size:16px;color:#9ca3af;"></i>
+                                        <?php }?>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600;color:#1f2937;"><?php echo $_smarty_tpl->getValue('item')['product_name'];?>
+</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding:15px;text-align:center;"><?php echo $_smarty_tpl->getValue('item')['quantity'];?>
+</td>
+                            <td style="padding:15px;text-align:right;"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('item')['product_price'],0,",",".");?>
+đ</td>
+                            <td style="padding:15px;text-align:right;font-weight:600;color:#22c55e;"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('item')['subtotal'],0,",",".");?>
+đ</td>
+                        </tr>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </tbody>
+                </table>
+            </div>
+        <?php } else { ?>
+            <div style="text-align:center;padding:20px;color:#6b7280;">
+                <i class="fas fa-shopping-bag" style="font-size:2em;margin-bottom:10px;color:#d1d5db;"></i>
+                <p>Không có sản phẩm nào</p>
+            </div>
+        <?php }?>
+    </div>
+    
+    <div style="text-align:center;">
+        <a href="/itc_toi-main/index.php?controller=user_orders&action=index" style="padding:10px 20px;background:#6b7280;color:white;text-decoration:none;border-radius:6px;font-weight:500;margin-right:10px;" onmouseover="this.style.background='#4b5563'" onmouseout="this.style.background='#6b7280'">
+            <i class="fas fa-list"></i> Danh sách đơn hàng
+        </a>
+        <a href="/itc_toi-main/index.php?controller=user&action=welcome" style="padding:10px 20px;background:#22c55e;color:white;text-decoration:none;border-radius:6px;font-weight:500;" onmouseover="this.style.background='#16a34a'" onmouseout="this.style.background='#22c55e'">
+            <i class="fas fa-home"></i> Về trang chủ
+        </a>
+    </div>
+</div>
+<?php
+}
+}
+/* {/block 'content'} */
+}
