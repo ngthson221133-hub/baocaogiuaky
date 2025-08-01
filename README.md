@@ -351,4 +351,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**© 2025 Fruit Store. All rights reserved.** 
+**© 2025 Fruit Store. All rights reserved.** #   B a n t r a i c a y  
+ 
