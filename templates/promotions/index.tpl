@@ -38,7 +38,6 @@
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Tên</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Loại giảm giá</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Giá trị</th>
-                    <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Tối thiểu</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Đã dùng</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Trạng thái</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Hành động</th>
@@ -61,22 +60,10 @@
                                 {if $promotion.discount_type == 'percentage'}
                                     {$promotion.discount_value}%
                                 {else}
-                                    {$promotion.discount_value|number_format:0:",":"."}đ
+                                    {$promotion.discount_value|number_format:0:',','.'}đ
                                 {/if}
                             </td>
-                            <td style="padding:12px;">
-                                {if $promotion.min_order_amount > 0}
-                                    {$promotion.min_order_amount|number_format:0:",":"."}đ
-                                {else}
-                                    <span style="color:#6b7280;">Không giới hạn</span>
-                                {/if}
-                            </td>
-                            <td style="padding:12px;">
-                                {$promotion.used_count}
-                                {if $promotion.usage_limit}
-                                    /{$promotion.usage_limit}
-                                {/if}
-                            </td>
+                            <td style="padding:12px;">{$promotion.used_count|default:0}</td>
                             <td style="padding:12px;">
                                 {if $promotion.is_active}
                                     <span style="background:#dcfce7; color:#166534; padding:4px 8px; border-radius:4px; font-size:0.85em;">Hoạt động</span>
@@ -101,7 +88,7 @@
                     {/foreach}
                 {else}
                     <tr>
-                        <td colspan="8" style="padding:40px; text-align:center; color:#6b7280;">
+                        <td colspan="7" style="padding:40px; text-align:center; color:#6b7280;">
                             <i class="fa-solid fa-tags" style="font-size:2em; margin-bottom:16px; display:block;"></i>
                             Chưa có mã khuyến mãi nào
                         </td>

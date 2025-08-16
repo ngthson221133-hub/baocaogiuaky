@@ -287,7 +287,7 @@
               <span class="cart-count" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:18px;height:18px;font-size:0.7em;display:flex;align-items:center;justify-content:center;font-weight:600;">0</span>
           </a>
         {else}
-          <a href="/itc_toi-main/index.php?controller=cart_guest&action=view" style="color:inherit;text-decoration:none;position:relative;">
+          <a href="/itc_toi-main/index.php?controller=user&action=login" style="color:inherit;text-decoration:none;position:relative;">
               <i class="fas fa-shopping-cart"></i>
               <span class="cart-count" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:18px;height:18px;font-size:0.7em;display:flex;align-items:center;justify-content:center;font-weight:600;">0</span>
           </a>
@@ -495,17 +495,21 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Function load số lượng giỏ hàng
   function loadCartCount() {
-    fetch('/itc_toi-main/index.php?controller=cart_guest&action=getCount')
-    .then(response => response.json())
-    .then(data => {
+    const isLoggedIn = document.querySelector('.welcome-user') !== null || {$smarty.session.username|default:''} !== '';
+    if (isLoggedIn) {
+      fetch('/itc_toi-main/index.php?controller=cart&action=getCount')
+      .then(response => response.json())
+      .then(data => {
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        cartCountElements.forEach(element => {
+          element.textContent = data.count || 0;
+        });
+      })
+      .catch(() => {});
+    } else {
       const cartCountElements = document.querySelectorAll('.cart-count');
-      cartCountElements.forEach(element => {
-        element.textContent = data.count || 0;
-      });
-    })
-    .catch(error => {
-      console.error('Error loading cart count:', error);
-    });
+      cartCountElements.forEach(element => { element.textContent = 0; });
+    }
   }
 </script>
 <footer style="background:#29532a;color:#fff;padding:40px 0 0 0;margin-top:40px;">

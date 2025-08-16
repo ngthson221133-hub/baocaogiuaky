@@ -98,29 +98,55 @@ class orders
     public function get_order_statistics() {
         global $db;
         
-        $stats = [];
+        $sql = "SELECT 
+                    COUNT(*) as total_orders,
+                    SUM(total_amount) as total_revenue,
+                    COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending_orders,
+                    COUNT(CASE WHEN status = 'confirmed' THEN 1 END) as confirmed_orders,
+                    COUNT(CASE WHEN status = 'shipping' THEN 1 END) as shipping_orders,
+                    COUNT(CASE WHEN status = 'delivered' THEN 1 END) as delivered_orders,
+                    COUNT(CASE WHEN status = 'cancelled' THEN 1 END) as cancelled_orders
+                FROM orders";
         
-        // Tổng số đơn hàng
-        $sql_total = "SELECT COUNT(*) as total FROM orders";
-        $result_total = $db->executeQuery_list($sql_total);
-        $stats['total_orders'] = $result_total[0]['total'];
+        $result = $db->executeQuery_list($sql);
+        return $result ? $result[0] : false;
+    }
+    
+    public function get_order_items($order_id) {
+        global $db;
         
-        // Đơn hàng theo trạng thái
-        $sql_status = "SELECT status, COUNT(*) as count FROM orders GROUP BY status";
-        $result_status = $db->executeQuery_list($sql_status);
-        $stats['by_status'] = $result_status;
+        $order_id = $db->escape_str($order_id);
+        $sql = "SELECT oi.*, p.name as product_name, p.image_url 
+                FROM order_items oi 
+                LEFT JOIN products p ON oi.product_id = p.id 
+                WHERE oi.order_id = '$order_id'";
         
-        // Tổng doanh thu
-        $sql_revenue = "SELECT SUM(total_amount) as total_revenue FROM orders WHERE status != 'cancelled'";
-        $result_revenue = $db->executeQuery_list($sql_revenue);
-        $stats['total_revenue'] = $result_revenue[0]['total_revenue'] ?? 0;
+        return $db->executeQuery_list($sql);
+    }
+    
+    public function create_order_with_items($order_data, $items_data) {
+        global $db;
         
-        // Đơn hàng hôm nay
-        $sql_today = "SELECT COUNT(*) as today_orders FROM orders WHERE DATE(created_at) = CURDATE()";
-        $result_today = $db->executeQuery_list($sql_today);
-        $stats['today_orders'] = $result_today[0]['today_orders'];
+        // Tạo order
+        $order_id = $this->create_order($order_data);
+        if (!$order_id) {
+            return false;
+        }
         
-        return $stats;
+        // Thêm order items
+        foreach ($items_data as $item) {
+            $item['order_id'] = $order_id;
+            $sql = "INSERT INTO order_items (order_id, product_id, product_name, product_price, quantity) 
+                    VALUES ('$order_id', '{$item['product_id']}', '{$item['product_name']}', '{$item['product_price']}', '{$item['quantity']}')";
+            
+            if (!$db->executeQuery($sql)) {
+                // Nếu có lỗi, xóa order đã tạo
+                $db->executeQuery("DELETE FROM orders WHERE id = '$order_id'");
+                return false;
+            }
+        }
+        
+        return $order_id;
     }
 }
 ?>

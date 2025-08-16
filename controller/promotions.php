@@ -39,11 +39,6 @@ class promotionsController {
                 'description' => $_POST['description'],
                 'discount_type' => $_POST['discount_type'],
                 'discount_value' => $_POST['discount_value'],
-                'min_order_amount' => $_POST['min_order_amount'],
-                'max_discount' => $_POST['max_discount'] ?: null,
-                'usage_limit' => $_POST['usage_limit'] ?: null,
-                'start_date' => $_POST['start_date'],
-                'end_date' => $_POST['end_date'],
                 'is_active' => isset($_POST['is_active']) ? 1 : 0
             ];
             
@@ -83,11 +78,6 @@ class promotionsController {
                 'description' => $_POST['description'],
                 'discount_type' => $_POST['discount_type'],
                 'discount_value' => $_POST['discount_value'],
-                'min_order_amount' => $_POST['min_order_amount'],
-                'max_discount' => $_POST['max_discount'] ?: null,
-                'usage_limit' => $_POST['usage_limit'] ?: null,
-                'start_date' => $_POST['start_date'],
-                'end_date' => $_POST['end_date'],
                 'is_active' => isset($_POST['is_active']) ? 1 : 0
             ];
             

@@ -5,9 +5,7 @@
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
         <h1 style="color:#1f2937; font-size:1.8em; font-weight:700; margin:0;"><i class="fa-solid fa-chart-line"></i> Báo cáo bán hàng</h1>
         <div style="display:flex; gap:12px;">
-            <a href="/itc_toi-main/index.php?controller=export&action=salesReport" style="background:#22c55e; color:#fff; border:none; border-radius:8px; padding:12px 20px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:8px; transition:background 0.3s;" onmouseover="this.style.background='#16a34a'" onmouseout="this.style.background='#22c55e'">
-                <i class="fa-solid fa-file-excel"></i> Xuất Excel
-            </a>
+            <!-- Export Excel removed for optimization -->
         </div>
     </div>
 <div class="stats-cards" style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px;">

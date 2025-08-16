@@ -9,7 +9,6 @@ class dashboardController {
         
         include_once 'model/orders.php';
         include_once 'model/users.php';
-        include_once 'model/order_items.php';
         include_once 'model/products.php';
         include_once 'model/categories.php';
         
@@ -34,21 +33,6 @@ class dashboardController {
         // Đơn hàng gần đây
         $recent_orders = $db->executeQuery_list('SELECT o.*, u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id ORDER BY o.created_at DESC LIMIT 5');
         
-        // Dữ liệu biểu đồ 7 ngày gần đây
-        $weekly_data = [];
-        $weekly_labels = [];
-        
-        for ($i = 6; $i >= 0; $i--) {
-            $date = date('Y-m-d', strtotime("-$i days"));
-            $weekly_labels[] = "'" . date('d/m', strtotime($date)) . "'";
-            
-            $result = $db->executeQuery_list("SELECT COUNT(*) as orders, SUM(total_amount) as revenue FROM orders WHERE DATE(created_at) = '$date'");
-            $weekly_data[] = [
-                'orders' => $result[0]['orders'] ?? 0,
-                'revenue' => $result[0]['revenue'] ?? 0
-            ];
-        }
-        
         // Top sản phẩm bán chạy
         $top_products = $db->executeQuery_list('
             SELECT oi.product_name, SUM(oi.quantity) as total_sold, SUM(oi.quantity * oi.product_price) as total_revenue
@@ -71,10 +55,11 @@ class dashboardController {
         $smarty->assign('total_products', $total_products);
         $smarty->assign('total_users', $total_users);
         $smarty->assign('recent_orders', $recent_orders);
-        $smarty->assign('weekly_data', $weekly_data);
-        $smarty->assign('weekly_labels', implode(',', $weekly_labels));
         $smarty->assign('top_products', $top_products);
         $smarty->assign('order_status_stats', $order_status_stats);
+        // Safe defaults to avoid template errors if chart still present
+        $smarty->assign('weekly_data', []);
+        $smarty->assign('weekly_labels', '');
         $smarty->assign('pageTitle', 'Dashboard');
         $smarty->assign('mainContent', 'dashboard/index.tpl');
     }

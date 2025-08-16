@@ -79,7 +79,7 @@ function buyNow(productId, productName, price) {
     if (quantity === null || quantity <= 0) return;
     
     // Gửi AJAX để thêm vào giỏ hàng khách
-    fetch('/itc_toi-main/index.php?controller=cart_guest&action=add', {
+    fetch('/itc_toi-main/index.php?controller=cart&action=add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

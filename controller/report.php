@@ -5,11 +5,9 @@ include_once 'model/users.php';
 
 function salesAction($smarty) {
     include_once 'model/orders.php';
-    include_once 'model/order_items.php';
     include_once 'model/products.php';
     
     $orders = new orders();
-    $order_items = new order_items();
     $products = new products();
     
     // Lấy tất cả đơn hàng
@@ -70,7 +68,7 @@ function salesAction($smarty) {
         }
         
         // Lấy chi tiết đơn hàng để thống kê sản phẩm
-        $order_items_list = $order_items->get_order_items($order['id']);
+        $order_items_list = $orders->get_order_items($order['id']);
         foreach ($order_items_list as $item) {
             $product_id = $item['product_id'];
             $quantity = intval($item['quantity']);
@@ -114,46 +112,28 @@ function salesAction($smarty) {
 }
 
 function usersAction($smarty) {
-    // Lấy dữ liệu thống kê người dùng
+    // Giữ nguyên phần thống kê người dùng hiện tại
     $users = new users();
-    
-    // Lấy tất cả người dùng, sắp xếp theo created_at DESC
     $all_users = $users->list_all_sort_by_id(0, '', 'DESC');
-    
-    // Đếm tổng số người dùng
     $total_users = count($all_users);
-    
-    // Đếm người dùng mới hôm nay và phân loại theo role
     $today = date('Y-m-d');
     $new_users_today = 0;
     $regular_users = 0;
     $admin_users = 0;
-    
-    // Khởi tạo mảng đếm theo tháng
     $monthly_data = array_fill(1, 12, 0);
-    
-    // Khởi tạo mảng đếm theo 7 ngày gần đây
     $weekly_data = array_fill(0, 7, 0);
     $weekly_labels = [];
-    
-    // Tạo labels cho 7 ngày gần đây
     for ($i = 6; $i >= 0; $i--) {
         $date = date('Y-m-d', strtotime("-$i days"));
         $weekly_labels[] = "'" . date('d/m', strtotime($date)) . "'";
     }
-    
     foreach ($all_users as $user) {
-        // Đếm người dùng mới hôm nay
         if (isset($user['created_at']) && date('Y-m-d', strtotime($user['created_at'])) === $today) {
             $new_users_today++;
         }
-        
-        // Đếm theo tháng
         if (isset($user['created_at'])) {
             $month = (int)date('n', strtotime($user['created_at']));
             $monthly_data[$month]++;
-            
-            // Đếm theo 7 ngày gần đây
             $user_date = date('Y-m-d', strtotime($user['created_at']));
             for ($i = 6; $i >= 0; $i--) {
                 $check_date = date('Y-m-d', strtotime("-$i days"));
@@ -163,8 +143,6 @@ function usersAction($smarty) {
                 }
             }
         }
-        
-        // Phân loại theo role
         if (isset($user['role'])) {
             if ($user['role'] === 'admin') {
                 $admin_users++;
@@ -172,12 +150,9 @@ function usersAction($smarty) {
                 $regular_users++;
             }
         } else {
-            // Nếu không có role, coi như user thường
             $regular_users++;
         }
     }
-    
-    // Gán dữ liệu cho template
     $smarty->assign('users', $all_users);
     $smarty->assign('total_users', $total_users);
     $smarty->assign('new_users_today', $new_users_today);
@@ -189,4 +164,4 @@ function usersAction($smarty) {
     $smarty->assign('weekly_total', array_sum($weekly_data));
     $smarty->assign('pageTitle', 'Thống kê người dùng');
     $smarty->assign('mainContent', 'report/users.tpl');
-} 
+}  

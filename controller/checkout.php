@@ -1,45 +1,31 @@
 <?php
         include_once 'model/orders.php';
-        include_once 'model/order_items.php';
         include_once 'model/cart.php';
-        include_once 'model/cart_guest.php';
         include_once 'model/products.php';
         include_once 'model/promotions.php';
 
 class checkoutController {
     
     public function indexAction($smarty) {
-        // Kiểm tra xem có giỏ hàng không
-        if (isset($_SESSION['user_id'])) {
-            // User đã đăng nhập
-            $cart = new cart();
-            $cart_items = $cart->get_cart_items($_SESSION['user_id']);
-            $cart_total = $cart->get_cart_total($_SESSION['user_id']);
-            
-            if (empty($cart_items)) {
-                header("Location: /itc_toi-main/index.php?controller=user&action=welcome");
-                exit();
-            }
-            
-            $smarty->assign('cart_items', $cart_items);
-            $smarty->assign('cart_total', $cart_total);
-            $smarty->assign('is_logged_in', true);
-            $smarty->assign('user_id', $_SESSION['user_id']);
-        } else {
-            // Guest user
-            $cart_guest = new cart_guest();
-            $cart_items = $cart_guest->get_cart_items_guest();
-            $cart_total = $cart_guest->get_cart_total_guest();
-            
-            if (empty($cart_items)) {
-                header("Location: /itc_toi-main/index.php");
-                exit();
-            }
-            
-            $smarty->assign('cart_items', $cart_items);
-            $smarty->assign('cart_total', $cart_total);
-            $smarty->assign('is_logged_in', false);
+        // Yêu cầu đăng nhập để thanh toán
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: /itc_toi-main/index.php?controller=user&action=login");
+            exit();
         }
+        
+        $cart = new cart();
+        $cart_items = $cart->get_cart_items($_SESSION['user_id']);
+        $cart_total = $cart->get_cart_total($_SESSION['user_id']);
+        
+        if (empty($cart_items)) {
+            header("Location: /itc_toi-main/index.php?controller=user&action=welcome");
+            exit();
+        }
+        
+        $smarty->assign('cart_items', $cart_items);
+        $smarty->assign('cart_total', $cart_total);
+        $smarty->assign('is_logged_in', true);
+        $smarty->assign('user_id', $_SESSION['user_id']);
         
         $smarty->assign('mainContent', 'checkout/index.tpl');
     }
@@ -50,32 +36,30 @@ class checkoutController {
             exit();
         }
         
+        if (!isset($_SESSION['user_id'])) {
+            echo json_encode(['success' => false, 'message' => 'Vui lòng đăng nhập']);
+            return;
+        }
+        
         $orders = new orders();
-        $order_items = new order_items();
         $products = new products();
         $promotions = new promotions();
+        $cart = new cart();
         
         // Lấy dữ liệu từ form
         $order_data = [
-            'user_id' => isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null,
-            'guest_email' => $_POST['email'] ?? '',
-            'guest_name' => $_POST['name'] ?? '',
-            'guest_phone' => $_POST['phone'] ?? '',
+            'user_id' => $_SESSION['user_id'],
+            'guest_email' => '',
+            'guest_name' => '',
+            'guest_phone' => '',
             'shipping_address' => $_POST['address'] ?? '',
             'payment_method' => $_POST['payment_method'] ?? 'cod',
             'notes' => $_POST['notes'] ?? ''
         ];
         
         // Lấy giỏ hàng
-        if (isset($_SESSION['user_id'])) {
-            $cart = new cart();
-            $cart_items = $cart->get_cart_items($_SESSION['user_id']);
-            $cart_total = $cart->get_cart_total($_SESSION['user_id']);
-        } else {
-            $cart_guest = new cart_guest();
-            $cart_items = $cart_guest->get_cart_items_guest();
-            $cart_total = $cart_guest->get_cart_total_guest();
-        }
+        $cart_items = $cart->get_cart_items($_SESSION['user_id']);
+        $cart_total = $cart->get_cart_total($_SESSION['user_id']);
         
         if (empty($cart_items)) {
             echo json_encode(['success' => false, 'message' => 'Giỏ hàng trống']);
@@ -88,9 +72,7 @@ class checkoutController {
         $promotion_id = null;
         
         if ($promotion_code) {
-            $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-            $validation = $promotions->validate_promotion($promotion_code, $user_id, $cart_total);
-            
+            $validation = $promotions->validate_promotion($promotion_code, $_SESSION['user_id'], $cart_total);
             if ($validation['valid']) {
                 $promotion = $validation['promotion'];
                 $discount_amount = $promotions->calculate_discount($promotion, $cart_total);
@@ -102,24 +84,21 @@ class checkoutController {
         $order_data['promotion_id'] = $promotion_id;
         $order_data['discount_amount'] = $discount_amount;
         
-        // Tạo đơn hàng
-        $order_id = $orders->create_order($order_data);
+        // Chuẩn bị dữ liệu items
+        $items_data = [];
+        foreach ($cart_items as $item) {
+            $items_data[] = [
+                'product_id' => $item['product_id'],
+                'product_name' => $item['name'] ?? $item['product_name'] ?? 'Sản phẩm không xác định',
+                'product_price' => $item['price'],
+                'quantity' => $item['quantity']
+            ];
+        }
+        
+        // Tạo đơn hàng kèm items
+        $order_id = $orders->create_order_with_items($order_data, $items_data);
         
         if ($order_id) {
-            // Thêm chi tiết đơn hàng
-            $items_data = [];
-            foreach ($cart_items as $item) {
-                $items_data[] = [
-                    'product_id' => $item['product_id'],
-                    'product_name' => $item['name'] ?? $item['product_name'] ?? 'Sản phẩm không xác định',
-                    'product_price' => $item['price'],
-                    'quantity' => $item['quantity'],
-                    'subtotal' => $item['price'] * $item['quantity']
-                ];
-            }
-            
-            $order_items->add_order_items($order_id, $items_data);
-            
             // Cập nhật số lượng sản phẩm trong kho
             foreach ($cart_items as $item) {
                 $products->update_quantity($item['product_id'], $item['quantity']);
@@ -127,22 +106,20 @@ class checkoutController {
             
             // Ghi lại việc sử dụng mã khuyến mãi
             if ($promotion_id) {
-                $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
                 $promotions->increment_usage($promotion_id);
-                $promotions->record_usage($promotion_id, $user_id, $order_id, $discount_amount);
+                $promotions->record_usage($promotion_id, $_SESSION['user_id'], $order_id, $discount_amount);
             }
             
             // Xử lý theo phương thức thanh toán
             if ($order_data['payment_method'] === 'bank_transfer') {
-                // Chuyển khoản ngân hàng - KHÔNG xóa giỏ hàng ngay
                 include_once 'model/bank_transfer.php';
                 $bank_transfer = new bank_transfer();
-                $transfer_id = $bank_transfer->create_transfer($order_id, $order_data['total_amount']);
+                $transfer_id = $bank_transfer->create_simple_transfer($order_id, $order_data['total_amount']);
                 
                 if ($transfer_id) {
                     if (isset($_POST['ajax'])) {
                         echo json_encode([
-                            'success' => true, 
+                            'success' => true,
                             'message' => 'Vui lòng thanh toán qua chuyển khoản để hoàn tất đơn hàng.',
                             'order_id' => $order_id,
                             'transfer_id' => $transfer_id,
@@ -153,23 +130,18 @@ class checkoutController {
                     }
                 } else {
                     if (isset($_POST['ajax'])) {
-                        echo json_encode(['success' => false, 'message' => 'Có lỗi xảy ra khi tạo mã chuyển khoản']);
+                        echo json_encode(['success' => false, 'message' => 'Có lỗi xảy ra khi tạo thông tin chuyển khoản']);
                     } else {
                         header("Location: /itc_toi-main/index.php?controller=checkout&action=index&error=1");
                     }
                 }
             } else {
-                // COD hoặc thanh toán khác - xóa giỏ hàng ngay
-                // Xóa giỏ hàng
-                if (isset($_SESSION['user_id'])) {
-                    $cart->clear_cart($_SESSION['user_id']);
-                } else {
-                    $cart_guest->clear_cart_guest();
-                }
+                // COD - xóa giỏ hàng ngay
+                $cart->clear_cart($_SESSION['user_id']);
                 
                 if (isset($_POST['ajax'])) {
                     echo json_encode([
-                        'success' => true, 
+                        'success' => true,
                         'message' => 'Đặt hàng thành công!',
                         'order_id' => $order_id
                     ]);
@@ -191,10 +163,8 @@ class checkoutController {
         
         if ($order_id) {
             $orders = new orders();
-            $order_items = new order_items();
-            
             $order = $orders->get_order_by_id($order_id);
-            $items = $order_items->get_order_items($order_id);
+            $items = $orders->get_order_items($order_id);
             
             $smarty->assign('order', $order);
             $smarty->assign('items', $items);

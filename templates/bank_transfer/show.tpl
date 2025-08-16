@@ -3,17 +3,13 @@
 {block name=content}
 <div style="max-width:600px; margin:0 auto; padding:20px;">
     <div style="background:#fff; border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,0.1); padding:32px; text-align:center;">
-        
-        <!-- Header -->
-        <div style="margin-bottom:32px;">
+        <div style="margin-bottom:24px;">
             <div style="background:#f59e0b; color:#fff; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:2.5em;">
-                <i class="fa-solid fa-clock"></i>
+                <i class="fa-solid fa-university"></i>
             </div>
-            <h1 style="color:#1f2937; font-size:1.8em; font-weight:700; margin:0 0 8px;">Chờ thanh toán</h1>
-            <p style="color:#6b7280; font-size:1.1em; margin:0;">Đơn hàng đang chờ thanh toán qua chuyển khoản</p>
+            <h1 style="color:#1f2937; font-size:1.6em; font-weight:700; margin:0 0 8px;">Thanh toán chuyển khoản</h1>
+            <p style="color:#6b7280; font-size:1em; margin:0;">Vui lòng chuyển khoản theo thông tin bên dưới</p>
         </div>
-
-        <!-- Thông tin đơn hàng -->
         <div style="background:#f8fafc; border-radius:12px; padding:24px; margin-bottom:24px; text-align:left;">
             <h3 style="color:#1f2937; font-size:1.2em; font-weight:600; margin:0 0 16px;">
                 <i class="fa-solid fa-receipt"></i> Thông tin đơn hàng
@@ -25,42 +21,10 @@
                 </div>
                 <div>
                     <div style="color:#6b7280; font-size:0.9em; margin-bottom:4px;">Số tiền:</div>
-                    <div style="color:#22c55e; font-weight:600; font-size:1.1em;">{$transfer.amount|number_format:0:",":"."}đ</div>
+                    <div style="color:#22c55e; font-weight:600; font-size:1.1em;">{$transfer.amount|number_format:0:',','.'}đ</div>
                 </div>
             </div>
-            <div style="margin-top:16px; padding:12px; background:#fef3c7; border:1px solid #fde68a; border-radius:8px;">
-                <div style="display:flex; align-items:center; gap:8px; color:#d97706; font-weight:600;">
-                    <i class="fa-solid fa-info-circle"></i>
-                    <span>Trạng thái: Chờ thanh toán</span>
-                </div>
-                <p style="color:#92400e; margin:8px 0 0 0; font-size:0.9em;">
-                    Đơn hàng sẽ được xác nhận sau khi admin kiểm tra thanh toán thành công.
-                </p>
-            </div>
         </div>
-
-        <!-- QR Code -->
-        <div style="margin-bottom:32px;">
-            {if $is_expired}
-                <div style="background:#fee2e2; border:2px solid #fecaca; border-radius:12px; padding:32px; margin-bottom:16px;">
-                    <div style="color:#dc2626; font-size:1.2em; font-weight:600; margin-bottom:8px;">
-                        <i class="fa-solid fa-exclamation-triangle"></i> Mã QR đã hết hạn
-                    </div>
-                    <p style="color:#dc2626; margin:0;">Mã chuyển khoản này đã hết hạn. Vui lòng tạo mã mới.</p>
-                </div>
-                <a href="/itc_toi-main/index.php?controller=bank_transfer&action=create&order_id={$order.id}&amount={$transfer.amount}" style="background:#dc2626; color:#fff; border:none; border-radius:8px; padding:12px 24px; font-weight:600; text-decoration:none; display:inline-block;">
-                    <i class="fa-solid fa-refresh"></i> Tạo mã mới
-                </a>
-            {else}
-                <div style="background:#f8fafc; border:2px solid #e5e7eb; border-radius:12px; padding:32px; margin-bottom:16px;">
-                    <img src="{$transfer.qr_code}" alt="QR Code" style="max-width:250px; max-height:250px; border-radius:8px; margin-bottom:16px;">
-                    <div style="color:#1f2937; font-weight:600; margin-bottom:8px;">Quét mã QR bằng ứng dụng ngân hàng</div>
-                    <p style="color:#6b7280; margin:0; font-size:0.9em;">Hoặc chụp màn hình để thanh toán sau</p>
-                </div>
-            {/if}
-        </div>
-
-        <!-- Thông tin chuyển khoản -->
         <div style="background:#f0f9ff; border:2px solid #bae6fd; border-radius:12px; padding:24px; margin-bottom:24px; text-align:left;">
             <h3 style="color:#0369a1; font-size:1.2em; font-weight:600; margin:0 0 16px;">
                 <i class="fa-solid fa-university"></i> Thông tin tài khoản
@@ -74,109 +38,27 @@
                     <span style="color:#0369a1; font-weight:500;">Số tài khoản:</span>
                     <span style="color:#1f2937; font-weight:600; font-family:monospace; font-size:1.1em;">{$transfer.bank_account}</span>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #e0f2fe;">
-                    <span style="color:#0369a1; font-weight:500;">Số tiền:</span>
-                    <span style="color:#22c55e; font-weight:600; font-size:1.1em;">{$transfer.amount|number_format:0:",":"."}đ</span>
-                </div>
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0;">
-                    <span style="color:#0369a1; font-weight:500;">Nội dung:</span>
+                    <span style="color:#0369a1; font-weight:500;">Nội dung chuyển khoản:</span>
                     <span style="color:#1f2937; font-weight:600; font-family:monospace; background:#fff; padding:4px 8px; border-radius:4px; border:1px solid #d1d5db;">{$transfer.transfer_content}</span>
                 </div>
             </div>
         </div>
-
-        <!-- Thời gian hết hạn -->
-        <div style="background:#fef3c7; border:2px solid #fde68a; border-radius:12px; padding:20px; margin-bottom:24px;">
-            <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-                <i class="fa-solid fa-clock" style="color:#d97706;"></i>
-                <span style="color:#d97706; font-weight:600;">Thời gian hết hạn</span>
-            </div>
-            <div style="color:#92400e; font-size:1.1em; font-weight:600;" id="countdown">
-                <span id="minutes">30</span>:<span id="seconds">00</span>
-            </div>
+        <div style="background:#f8fafc; border-radius:12px; padding:20px; text-align:left;">
+            <h4 style="color:#1f2937; font-size:1.1em; font-weight:600; margin:0 0 12px;">
+                <i class="fa-solid fa-info-circle"></i> Lưu ý
+            </h4>
+            <ul style="color:#6b7280; margin:0; padding-left:20px;">
+                <li>Chuyển khoản đúng số tiền và nội dung trên để hệ thống dễ kiểm tra.</li>
+                <li>Sau khi chuyển khoản, vui lòng đợi admin xác nhận thanh toán.</li>
+                <li>Bạn có thể quay lại trang chủ trong lúc chờ xác nhận.</li>
+            </ul>
         </div>
-
-        <!-- Nút kiểm tra thanh toán -->
-        <div style="display:flex; gap:12px; justify-content:center; margin-bottom:24px;">
-            <button onclick="checkPayment()" style="background:#f59e0b; color:#fff; border:none; border-radius:8px; padding:12px 24px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px;">
-                <i class="fa-solid fa-sync-alt"></i> Kiểm tra thanh toán
-            </button>
-            <a href="/itc_toi-main/index.php?controller=user&action=welcome" style="background:#f3f4f6; color:#374151; border:none; border-radius:8px; padding:12px 24px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:8px;">
+        <div style="margin-top:20px;">
+            <a href="/itc_toi-main/index.php?controller=user&action=welcome" style="background:#f3f4f6; color:#374151; border:none; border-radius:8px; padding:12px 24px; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
                 <i class="fa-solid fa-home"></i> Về trang chủ
             </a>
         </div>
-
-        <!-- Hướng dẫn -->
-        <div style="background:#f8fafc; border-radius:12px; padding:20px; text-align:left;">
-            <h4 style="color:#1f2937; font-size:1.1em; font-weight:600; margin:0 0 12px;">
-                <i class="fa-solid fa-info-circle"></i> Hướng dẫn thanh toán
-            </h4>
-            <ol style="color:#6b7280; margin:0; padding-left:20px;">
-                <li>Mở ứng dụng ngân hàng trên điện thoại</li>
-                <li>Chọn chức năng "Quét mã QR"</li>
-                <li>Quét mã QR bên trên</li>
-                <li>Kiểm tra thông tin và xác nhận thanh toán</li>
-                <li>Nhấn "Kiểm tra thanh toán" sau khi hoàn tất</li>
-            </ol>
-        </div>
     </div>
 </div>
-
-<script>
-let transferId = {$transfer.id};
-// Parse thời gian với timezone Việt Nam
-let expiresAt = new Date('{$transfer.expires_at} +07:00').getTime();
-
-// Countdown timer
-function updateCountdown() {
-    let now = new Date().getTime();
-    let distance = expiresAt - now;
-    
-    if (distance < 0) {
-        document.getElementById('countdown').innerHTML = '<span style="color:#dc2626;">Đã hết hạn</span>';
-        // Không reload tự động, chỉ hiển thị thông báo
-        return;
-    }
-    
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-// Kiểm tra thanh toán
-function checkPayment() {
-    fetch('/itc_toi-main/index.php?controller=bank_transfer&action=check', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'transfer_id=' + transferId
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            if (data.status === 'paid') {
-                alert('🎉 Thanh toán thành công! Đơn hàng của bạn đã được xác nhận và sẽ được xử lý sớm nhất.');
-                window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome';
-            } else {
-                alert('⏳ Chưa nhận được thanh toán. Vui lòng đảm bảo đã chuyển khoản đúng thông tin và thử lại sau.');
-            }
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Có lỗi xảy ra khi kiểm tra thanh toán.');
-    });
-}
-
-// Tắt auto check để tránh gọi API liên tục
-// setInterval(checkPayment, 30000);
-</script>
 {/block} 

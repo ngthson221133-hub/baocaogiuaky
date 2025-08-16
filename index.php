@@ -11,11 +11,9 @@ include_once 'model/model.php';
 include_once 'model/cart.php';
 include_once 'model/categories.php';
 include_once 'model/images.php';
-include_once 'model/order_items.php';
 include_once 'model/orders.php';
 include_once 'model/products.php';
 include_once 'model/promotions.php';
-include_once 'model/reviews.php';
 include_once 'model/users.php';
 
 //Gọi template engine Smarty
@@ -55,6 +53,7 @@ if (file_exists($controllerFile)) {
     echo 'Controller not found!';
     exit();
 }
+
 // Chỉ render template nếu không phải là request xử lý logic (ví dụ: POST login, redirect, ...)
 if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $actionName === 'login') {
     // Kiểm tra xem có mainContent được assign không

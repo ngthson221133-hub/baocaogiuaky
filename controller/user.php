@@ -43,12 +43,7 @@ if( (isset($_GET['controller']) && $_GET['controller'] == 'user' && isset($_GET[
                 ]);
                 exit();
             }
-            // Chuyển giỏ hàng khách sang user nếu có
-            if (isset($_SESSION['guest_cart']) && !empty($_SESSION['guest_cart'])) {
-                include_once 'model/cart_guest.php';
-                $cart_guest = new cart_guest();
-                $cart_guest->transfer_to_user_cart($_SESSION['user_id']);
-            }
+            // Không còn đồng bộ giỏ hàng guest
             
             if ($_SESSION['role'] === 'admin') {
                 header("Location: /itc_toi-main/index.php?controller=admin&action=index");

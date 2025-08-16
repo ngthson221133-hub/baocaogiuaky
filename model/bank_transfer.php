@@ -164,22 +164,56 @@ class bank_transfer
                 $order_model = new orders();
                 $order_model->update_order_status($transfer['order_id'], 'confirmed');
                 
-                // Xóa giỏ hàng sau khi xác nhận thanh toán
+                // Xóa giỏ hàng sau khi xác nhận thanh toán (chỉ với user đã đăng nhập)
                 include_once 'model/cart.php';
-                include_once 'model/cart_guest.php';
-                
                 $order = $order_model->get_order_by_id($transfer['order_id']);
                 if ($order && $order['user_id']) {
                     $cart = new cart();
                     $cart->clear_cart($order['user_id']);
-                } else if ($order && $order['guest_email']) {
-                    $cart_guest = new cart_guest();
-                    $cart_guest->clear_cart_guest();
                 }
             }
         }
         
         return $ok;
+    }
+
+    public function create_simple_transfer($order_id, $amount) {
+        global $db;
+        
+        // Tạo nội dung chuyển khoản đơn giản
+        $transfer_content = 'ITC' . $order_id;
+        
+        $data = array(
+            'order_id' => $order_id,
+            'qr_code' => '', // Không cần QR code
+            'transfer_content' => $transfer_content,
+            'amount' => $amount,
+            'bank_account' => '333777555', // STK của bạn
+            'bank_name' => 'MB Bank',
+            'expires_at' => null, // Không cần hết hạn
+            'status' => 'pending',
+            'created_at' => date('Y-m-d H:i:s')
+        );
+        
+        $ok = $db->record_insert('bank_transfer', $data);
+        if ($ok) {
+            return $db->mysqli_insert_id();
+        }
+        return false;
+    }
+
+    public function get_paid_transfers() {
+        global $db;
+        
+        $sql = "SELECT bt.*, o.total_amount, u.username 
+                FROM $db->tbl_fix`bank_transfer` bt 
+                LEFT JOIN $db->tbl_fix`orders` o ON bt.order_id = o.id 
+                LEFT JOIN $db->tbl_fix`users` u ON o.user_id = u.id 
+                WHERE bt.status = 'paid' 
+                ORDER BY bt.created_at DESC";
+        $result = $db->executeQuery_list($sql);
+        
+        return $result;
     }
 }
 ?> 

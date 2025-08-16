@@ -1,6 +1,5 @@
 <?php
 include_once 'model/orders.php';
-include_once 'model/order_items.php';
 
 class orders_adminController {
     
@@ -44,10 +43,8 @@ class orders_adminController {
         }
         
         $orders = new orders();
-        $order_items = new order_items();
-        
         $order = $orders->get_order_by_id($order_id);
-        $items = $order_items->get_order_items($order_id);
+        $items = $orders->get_order_items($order_id);
         
         if (!$order) {
             header("Location: /itc_toi-main/index.php?controller=orders_admin&action=index");

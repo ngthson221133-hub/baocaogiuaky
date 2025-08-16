@@ -5,9 +5,7 @@
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
         <h1 style="color:#1f2937; font-size:1.8em; font-weight:700; margin:0;"><i class="fa-solid fa-tachometer-alt"></i> Dashboard</h1>
         <div style="display:flex; gap:12px;">
-            <a href="/itc_toi-main/index.php?controller=export&action=dashboard" style="background:#22c55e; color:#fff; border:none; border-radius:8px; padding:12px 20px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:8px; transition:background 0.3s;" onmouseover="this.style.background='#16a34a'" onmouseout="this.style.background='#22c55e'">
-                <i class="fa-solid fa-file-excel"></i> Xuất Excel
-            </a>
+            <!-- Export removed -->
         </div>
     </div>
     <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px;">
@@ -22,7 +20,7 @@
             <div style="background:#dcfce7; color:#22c55e; border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; font-size:1.6em;"><i class="fa-solid fa-dollar-sign"></i></div>
             <div>
                 <div style="font-size:1.1em; color:#6b7280;">Doanh thu (VNĐ)</div>
-                <div style="font-size:1.7em; font-weight:600; color:#1f2937;">{$total_revenue|number_format:0:",":"."}đ</div>
+                <div style="font-size:1.7em; font-weight:600; color:#1f2937;">{$total_revenue|number_format:0:',','.'}đ</div>
             </div>
         </div>
         <div style="flex:1; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 2px 8px #e5e7eb; padding:24px; display:flex; align-items:center; gap:18px;">
@@ -38,37 +36,6 @@
                 <div style="font-size:1.1em; color:#6b7280;">Người dùng</div>
                 <div style="font-size:1.7em; font-weight:600; color:#1f2937;">{$total_users|default:0}</div>
             </div>
-        </div>
-    </div>
-
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
-        <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #e5e7eb; padding:24px; overflow:hidden;">
-            <div style="font-size:1.2em; font-weight:600; margin-bottom:20px; color:#1f2937;"><i class="fa-solid fa-chart-line"></i> Phân tích đơn hàng 7 ngày gần đây</div>
-            <div style="position:relative; height:300px; width:100%;">
-                <canvas id="orderChart" style="max-width:100%; max-height:100%;"></canvas>
-            </div>
-        </div>
-        
-        <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px #e5e7eb; padding:24px;">
-            <div style="font-size:1.2em; font-weight:600; margin-bottom:20px; color:#1f2937;"><i class="fa-solid fa-server"></i> Trạng thái hệ thống</div>
-            <ul style="list-style:none; padding:0; margin:0;">
-                <li style="margin-bottom:12px; color:#22c55e; display:flex; align-items:center; gap:8px;">
-                    <i class="fa-solid fa-database"></i> 
-                    <span>Database: <b>Hoạt động</b></span>
-                </li>
-                <li style="margin-bottom:12px; color:#22c55e; display:flex; align-items:center; gap:8px;">
-                    <i class="fa-solid fa-wifi"></i> 
-                    <span>Kết nối: <b>Tốt</b></span>
-                </li>
-                <li style="margin-bottom:12px; color:#2563eb; display:flex; align-items:center; gap:8px;">
-                    <i class="fa-solid fa-user-shield"></i> 
-                    <span>Quyền admin: <b>Đầy đủ</b></span>
-                </li>
-                <li style="margin-bottom:12px; color:#f59e0b; display:flex; align-items:center; gap:8px;">
-                    <i class="fa-solid fa-clock"></i> 
-                    <span>Thời gian: <b>{$smarty.now|date_format:'%H:%M'}</b></span>
-                </li>
-            </ul>
         </div>
     </div>
 
@@ -90,7 +57,7 @@
                     <tr style="border-bottom:1px solid #f3f4f6;">
                         <td style="padding:12px 8px; font-weight:600; color:#1f2937;">#{$order.id}</td>
                         <td style="padding:12px 8px; color:#374151;">{$order.username|default:'Khách'}</td>
-                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$order.total_amount|number_format:0:",":"."}đ</td>
+                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$order.total_amount|number_format:0:',','.'}đ</td>
                         <td style="padding:12px 8px;">
                             {if $order.status == 'pending'}
                                 <span style="background:#fef3c7; color:#d97706; padding:4px 8px; border-radius:6px; font-size:0.9em; font-weight:500;">Chờ xử lý</span>
@@ -140,7 +107,7 @@
                             </div>
                         </td>
                         <td style="padding:12px 8px; color:#374151;">{$prod.total_sold} kg</td>
-                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$prod.total_revenue|number_format:0:",":"."}đ</td>
+                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$prod.total_revenue|number_format:0:',','.'}đ</td>
                     </tr>
                 {/foreach}
                 </tbody>
@@ -153,111 +120,4 @@
         {/if}
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Biểu đồ đơn hàng 7 ngày gần đây
-const ctx = document.getElementById('orderChart').getContext('2d');
-const orderChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [{$weekly_labels}],
-        datasets: [{
-            label: 'Đơn hàng',
-            data: [
-                {foreach from=$weekly_data item=day}
-                    {$day.orders},
-                {/foreach}
-            ],
-            borderColor: '#2563eb',
-            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4,
-            pointBackgroundColor: '#2563eb',
-            pointBorderColor: '#ffffff',
-            pointBorderWidth: 2,
-            pointRadius: 6,
-            yAxisID: 'y'
-        }, {
-            label: 'Doanh thu (triệu VNĐ)',
-            data: [
-                {foreach from=$weekly_data item=day}
-                    {($day.revenue / 1000000)|round:1},
-                {/foreach}
-            ],
-            borderColor: '#22c55e',
-            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-            borderWidth: 3,
-            fill: false,
-            tension: 0.4,
-            pointBackgroundColor: '#22c55e',
-            pointBorderColor: '#ffffff',
-            pointBorderWidth: 2,
-            pointRadius: 6,
-            yAxisID: 'y1'
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        plugins: {
-            legend: {
-                position: 'top',
-            }
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                type: 'linear',
-                display: true,
-                position: 'left',
-                grid: {
-                    color: '#f3f4f6'
-                },
-                title: {
-                    display: true,
-                    text: 'Số đơn hàng'
-                }
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
-                grid: {
-                    drawOnChartArea: false,
-                },
-                title: {
-                    display: true,
-                    text: 'Doanh thu (triệu VNĐ)'
-                }
-            }
-        }
-    }
-});
-</script>
-
-<style>
-@media (max-width: 768px) {
-    .chart-container {
-        grid-template-columns: 1fr !important;
-    }
-    
-    .stats-cards {
-        flex-direction: column !important;
-    }
-    
-    .stats-cards > div {
-        min-width: auto !important;
-    }
-}
-</style>
 {/block} 

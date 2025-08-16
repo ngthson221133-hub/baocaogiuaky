@@ -125,8 +125,8 @@
         const productId = {$product.id};
         const productName = '{$product.name}';
         
-        // Gửi AJAX để thêm vào giỏ hàng guest
-        fetch('/itc_toi-main/index.php?controller=cart_guest&action=add', {
+        // Gửi AJAX để thêm vào giỏ hàng
+        fetch('/itc_toi-main/index.php?controller=cart&action=add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

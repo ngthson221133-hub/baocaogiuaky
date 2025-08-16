@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-29 15:01:29
+/* Smarty version 5.5.1, created on 2025-08-11 19:35:38
   from 'file:templates/home/index.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6888c629374112_73622552',
+  'unifunc' => 'content_689a29ea12ad14_60774636',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcd7e936213679bc90397619bb7e155e38f668da' => 
     array (
       0 => 'templates/home/index.tpl',
-      1 => 1753776583,
+      1 => 1754933721,
       2 => 'file',
     ),
   ),
@@ -20,22 +20,22 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6888c629374112_73622552 (\Smarty\Template $_smarty_tpl) {
+function content_689a29ea12ad14_60774636 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1173838416888c62933dcc6_01399451', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_67160450689a29ea0e83b1_08016312', 'title');
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_3264102116888c629344ed8_49901806', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1407037700689a29ea0eefa9_26415003', 'content');
 ?>
  <?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "../layout_home.tpl", $_smarty_current_dir);
 }
 /* {block 'title'} */
-class Block_1173838416888c62933dcc6_01399451 extends \Smarty\Runtime\Block
+class Block_67160450689a29ea0e83b1_08016312 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';
@@ -45,7 +45,7 @@ Trang chủ - Trái Cây Tươi<?php
 }
 /* {/block 'title'} */
 /* {block 'content'} */
-class Block_3264102116888c629344ed8_49901806 extends \Smarty\Runtime\Block
+class Block_1407037700689a29ea0eefa9_26415003 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';
@@ -156,7 +156,7 @@ function buyNow(productId, productName, price) {
     if (quantity === null || quantity <= 0) return;
     
     // Gửi AJAX để thêm vào giỏ hàng khách
-    fetch('/itc_toi-main/index.php?controller=cart_guest&action=add', {
+    fetch('/itc_toi-main/index.php?controller=cart&action=add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

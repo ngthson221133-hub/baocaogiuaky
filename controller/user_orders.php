@@ -1,6 +1,5 @@
 <?php
 include_once 'model/orders.php';
-include_once 'model/order_items.php';
 
 class user_ordersController {
     
@@ -35,7 +34,6 @@ class user_ordersController {
         }
         
         $orders = new orders();
-        $order_items = new order_items();
         
         // Lấy thông tin đơn hàng
         $order = $orders->get_order_by_id($order_id);
@@ -47,7 +45,7 @@ class user_ordersController {
         }
         
         // Lấy chi tiết sản phẩm trong đơn hàng
-        $items = $order_items->get_order_items($order_id);
+        $items = $orders->get_order_items($order_id);
         
         $smarty->assign('order', $order);
         $smarty->assign('items', $items);
