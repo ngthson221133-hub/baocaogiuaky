@@ -80,7 +80,7 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     header('Location: /itc_toi-main/index.php?controller=admin&action=index&msg='.urlencode($message));
     exit();
 } elseif ($actionName == 'index') {
-    // Hiển thị dashboard admin
+    // Hiển thị dashboard admin với danh sách users
     $smarty->assign('mainContent', 'admin/index.tpl');
     $smarty->assign('pageTitle', 'Admin Dashboard');
     
@@ -103,13 +103,37 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $total_revenue = $db->executeQuery_list('SELECT SUM(total_amount) as total FROM orders WHERE status = "delivered"');
     $total_revenue = isset($total_revenue[0]['total']) ? $total_revenue[0]['total'] : 0;
     
+    // Lấy danh sách users để hiển thị
+    $q = isset($_GET['q']) ? trim($_GET['q']) : '';
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $limit = 10;
+    $offset = ($page - 1) * $limit;
+    $where = '';
+    if ($q !== '') {
+        $link = $db->getLink();
+        if (!$link) { $db->connect(); $link = $db->getLink(); }
+        $q_esc = mysqli_real_escape_string($link, $q);
+        $where = "WHERE name LIKE '%$q_esc%' OR email LIKE '%$q_esc%'";
+    }
+    $sql = "SELECT * FROM users $where ORDER BY id DESC LIMIT $offset, $limit";
+    $list = $db->executeQuery_list($sql);
+    $sql_count = "SELECT COUNT(*) as total FROM users $where";
+    $total = $db->executeQuery_list($sql_count);
+    $total_users_count = isset($total[0]['total']) ? intval($total[0]['total']) : 0;
+    $total_pages = ceil($total_users_count / $limit);
+    
     $smarty->assign('total_users', $total_users);
     $smarty->assign('total_products', $total_products);
     $smarty->assign('total_orders', $total_orders);
     $smarty->assign('total_revenue', $total_revenue);
+    $smarty->assign('users', $list);
+    $smarty->assign('message', $_GET['msg'] ?? '');
+    $smarty->assign('q', $q);
+    $smarty->assign('page', $page);
+    $smarty->assign('total_pages', $total_pages);
     
     // Hiển thị template dashboard
-    $smarty->display('admin/dashboard.tpl');
+    $smarty->display('admin/index.tpl');
     exit();
 } else {
     // Xử lý danh sách users (action mặc định)

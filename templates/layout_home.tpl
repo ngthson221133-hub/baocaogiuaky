@@ -466,13 +466,13 @@ document.addEventListener('DOMContentLoaded', function() {
           if(xhr.status === 200) {
             try {
               var res = JSON.parse(xhr.responseText);
-              if(res.success) {
-                if(res.role === 'admin') {
-                  window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
+                              if(res.success) {
+                  if(res.role === 'admin') {
+                    window.location.href = '/itc_toi-main/index.php?controller=product&action=index';
+                  } else {
+                    window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
+                  }
                 } else {
-                  window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
-                }
-              } else {
                 document.getElementById('login-message').style.display = 'block';
                 document.getElementById('login-message').innerText = res.message || 'Có lỗi xảy ra. Vui lòng thử lại.';
               }
@@ -483,13 +483,13 @@ document.addEventListener('DOMContentLoaded', function() {
                
                // Kiểm tra nếu có redirect trong response
                if(responseText.includes('admin') || responseText.includes('dashboard')) {
-                 window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
+                 window.location.href = '/itc_toi-main/index.php?controller=product&action=index';
                } else if(responseText.includes('welcome') || responseText.includes('user')) {
                  window.location.href = '/itc_toi-main/index.php?controller=user&action=dashboard';
                } else {
                  // Nếu không có redirect, kiểm tra email để xác định role
                  if(email === 'admin') {
-                   window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
+                   window.location.href = '/itc_toi-main/index.php?controller=product&action=index';
                  } else {
                    window.location.href = '/itc_toi-main/index.php?controller=user&action=dashboard';
                  }

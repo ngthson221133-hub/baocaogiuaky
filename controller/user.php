@@ -46,7 +46,7 @@ if( (isset($_GET['controller']) && $_GET['controller'] == 'user' && isset($_GET[
             // Không còn đồng bộ giỏ hàng guest
             
             if ($_SESSION['role'] === 'admin') {
-                header("Location: /itc_toi-main/index.php?controller=admin&action=index");
+                header("Location: /itc_toi-main/index.php?controller=product&action=index");
             } else {
                 header("Location: /itc_toi-main/index.php?controller=user&action=welcome&login_success=1");
             }
