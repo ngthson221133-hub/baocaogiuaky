@@ -50,7 +50,7 @@
                             <td style="padding:12px 8px; font-weight:600; color:#1f2937;">#{$transfer.id}</td>
                             <td style="padding:12px 8px; color:#374151;">#{$transfer.order_id}</td>
                             <td style="padding:12px 8px; color:#374151;">{$transfer.username|default:'Khách'}</td>
-                            <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$transfer.amount|number_format:0:',','.'}đ</td>
+                            <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$transfer.amount|number_format:0}đ</td>
                             <td style="padding:12px 8px;"><span style="background:#f3f4f6; color:#374151; padding:4px 8px; border-radius:4px; font-family:monospace; font-size:0.9em;">{$transfer.transfer_content}</span></td>
                             <td style="padding:12px 8px;">
                                 <form method="post" action="/itc_toi-main/index.php?controller=bank_transfer&action=markPaid" onsubmit="return confirm('Xác nhận đã thanh toán?')" style="display:inline;">
@@ -94,8 +94,8 @@
                             <td style="padding:12px 8px; font-weight:600; color:#1f2937;">#{$transfer.id}</td>
                             <td style="padding:12px 8px; color:#374151;">#{$transfer.order_id}</td>
                             <td style="padding:12px 8px; color:#374151;">{$transfer.username|default:'Khách'}</td>
-                            <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$transfer.amount|number_format:0:',','.'}đ</td>
-                            <td style="padding:12px 8px;"><span style="background:#f3f4f6; color:#374151; padding:4px 8px; border-radius:4px; font-family:monospace; font-size:0.9em;">{$transfer.transfer_content}</span></td>
+                            <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$transfer.amount|number_format:0}đ</td>
+                            <td style="padding:12px 8px;"><span style="background:#f3f4f6; color:#374151; padding:4px 8px; border-radius:4px; font-size:0.9em;">{$transfer.transfer_content}</span></td>
                             <td style="padding:12px 8px; color:#6b7280; font-size:0.9em;">{$transfer.updated_at|date_format:'%d/%m/%Y %H:%M'}</td>
                         </tr>
                         {/foreach}

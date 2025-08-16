@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-08-11 19:35:38
+/* Smarty version 5.5.1, created on 2025-08-16 03:55:59
   from 'file:templates/home/index.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_689a29ea12ad14_60774636',
+  'unifunc' => 'content_689fe52f921586_72790720',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcd7e936213679bc90397619bb7e155e38f668da' => 
     array (
       0 => 'templates/home/index.tpl',
-      1 => 1754933721,
+      1 => 1754934043,
       2 => 'file',
     ),
   ),
@@ -20,22 +20,22 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_689a29ea12ad14_60774636 (\Smarty\Template $_smarty_tpl) {
+function content_689fe52f921586_72790720 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_67160450689a29ea0e83b1_08016312', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2040249149689fe52f8b0bb8_70770834', 'title');
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1407037700689a29ea0eefa9_26415003', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1744152357689fe52f8bfc78_85996751', 'content');
 ?>
  <?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "../layout_home.tpl", $_smarty_current_dir);
 }
 /* {block 'title'} */
-class Block_67160450689a29ea0e83b1_08016312 extends \Smarty\Runtime\Block
+class Block_2040249149689fe52f8b0bb8_70770834 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';
@@ -45,7 +45,7 @@ Trang chủ - Trái Cây Tươi<?php
 }
 /* {/block 'title'} */
 /* {block 'content'} */
-class Block_1407037700689a29ea0eefa9_26415003 extends \Smarty\Runtime\Block
+class Block_1744152357689fe52f8bfc78_85996751 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home';

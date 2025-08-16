@@ -60,7 +60,7 @@
                                 {if $promotion.discount_type == 'percentage'}
                                     {$promotion.discount_value}%
                                 {else}
-                                    {$promotion.discount_value|number_format:0:',','.'}đ
+                                    {$promotion.discount_value|number_format:0}đ
                                 {/if}
                             </td>
                             <td style="padding:12px;">{$promotion.used_count|default:0}</td>

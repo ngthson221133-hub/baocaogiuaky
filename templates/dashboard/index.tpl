@@ -20,7 +20,7 @@
             <div style="background:#dcfce7; color:#22c55e; border-radius:50%; width:48px; height:48px; display:flex; align-items:center; justify-content:center; font-size:1.6em;"><i class="fa-solid fa-dollar-sign"></i></div>
             <div>
                 <div style="font-size:1.1em; color:#6b7280;">Doanh thu (VNĐ)</div>
-                <div style="font-size:1.7em; font-weight:600; color:#1f2937;">{$total_revenue|number_format:0:',','.'}đ</div>
+                <div style="font-size:1.7em; font-weight:600; color:#1f2937;">{$total_revenue|number_format:0}đ</div>
             </div>
         </div>
         <div style="flex:1; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 2px 8px #e5e7eb; padding:24px; display:flex; align-items:center; gap:18px;">
@@ -57,7 +57,7 @@
                     <tr style="border-bottom:1px solid #f3f4f6;">
                         <td style="padding:12px 8px; font-weight:600; color:#1f2937;">#{$order.id}</td>
                         <td style="padding:12px 8px; color:#374151;">{$order.username|default:'Khách'}</td>
-                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$order.total_amount|number_format:0:',','.'}đ</td>
+                                                    <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$order.total_amount|number_format:0}đ</td>
                         <td style="padding:12px 8px;">
                             {if $order.status == 'pending'}
                                 <span style="background:#fef3c7; color:#d97706; padding:4px 8px; border-radius:6px; font-size:0.9em; font-weight:500;">Chờ xử lý</span>
@@ -107,7 +107,7 @@
                             </div>
                         </td>
                         <td style="padding:12px 8px; color:#374151;">{$prod.total_sold} kg</td>
-                        <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$prod.total_revenue|number_format:0:',','.'}đ</td>
+                                                    <td style="padding:12px 8px; font-weight:600; color:#22c55e;">{$prod.total_revenue|number_format:0}đ</td>
                     </tr>
                 {/foreach}
                 </tbody>

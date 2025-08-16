@@ -22,6 +22,10 @@ class dashboardController {
         $total_orders = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM orders');
         $total_orders = isset($total_orders[0]['cnt']) ? $total_orders[0]['cnt'] : 0;
         
+        // Đơn hàng hôm nay
+        $today_orders = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM orders WHERE DATE(created_at) = CURDATE()');
+        $today_orders = isset($today_orders[0]['cnt']) ? $today_orders[0]['cnt'] : 0;
+        
         // Số sản phẩm
         $total_products = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM products');
         $total_products = isset($total_products[0]['cnt']) ? $total_products[0]['cnt'] : 0;
@@ -52,6 +56,7 @@ class dashboardController {
         // Gán dữ liệu cho template
         $smarty->assign('total_revenue', $total_revenue);
         $smarty->assign('total_orders', $total_orders);
+        $smarty->assign('today_orders', $today_orders);
         $smarty->assign('total_products', $total_products);
         $smarty->assign('total_users', $total_users);
         $smarty->assign('recent_orders', $recent_orders);

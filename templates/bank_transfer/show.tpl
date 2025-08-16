@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <div style="color:#6b7280; font-size:0.9em; margin-bottom:4px;">Số tiền:</div>
-                    <div style="color:#22c55e; font-weight:600; font-size:1.1em;">{$transfer.amount|number_format:0:',','.'}đ</div>
+                    <div style="color:#22c55e; font-weight:600; font-size:1.1em;">{$transfer.amount|number_format:0}đ</div>
                 </div>
             </div>
         </div>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-29 14:43:54
+/* Smarty version 5.5.1, created on 2025-08-16 04:00:41
   from 'file:templates/promotions/index.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6888c20aaeb454_31302239',
+  'unifunc' => 'content_689fe649b1f5b3_74197423',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f66d90c0b509125f570706449be6f034cc9bba8a' => 
     array (
       0 => 'templates/promotions/index.tpl',
-      1 => 1753777076,
+      1 => 1755309639,
       2 => 'file',
     ),
   ),
@@ -20,22 +20,22 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6888c20aaeb454_31302239 (\Smarty\Template $_smarty_tpl) {
+function content_689fe649b1f5b3_74197423 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\promotions';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_15818401486888c20aac8390_21931672', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2003467240689fe649b00963_81002586', 'title');
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_9944744266888c20aacf5b3_50029621', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1406353045689fe649b08a86_61166658', 'content');
 ?>
  <?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "../layout.tpl", $_smarty_current_dir);
 }
 /* {block 'title'} */
-class Block_15818401486888c20aac8390_21931672 extends \Smarty\Runtime\Block
+class Block_2003467240689fe649b00963_81002586 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\promotions';
@@ -45,7 +45,7 @@ Quản lý mã khuyến mãi<?php
 }
 /* {/block 'title'} */
 /* {block 'content'} */
-class Block_9944744266888c20aacf5b3_50029621 extends \Smarty\Runtime\Block
+class Block_1406353045689fe649b08a86_61166658 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\promotions';
@@ -90,7 +90,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\promotions';
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Tên</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Loại giảm giá</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Giá trị</th>
-                    <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Tối thiểu</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Đã dùng</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Trạng thái</th>
                     <th style="padding:12px; text-align:left; font-weight:600; color:#374151;">Hành động</th>
@@ -121,26 +120,12 @@ $foreach0DoElse = false;
                                     <?php echo $_smarty_tpl->getValue('promotion')['discount_value'];?>
 %
                                 <?php } else { ?>
-                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('promotion')['discount_value'],0,",",".");?>
+                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('promotion')['discount_value'],0);?>
 đ
                                 <?php }?>
                             </td>
-                            <td style="padding:12px;">
-                                <?php if ($_smarty_tpl->getValue('promotion')['min_order_amount'] > 0) {?>
-                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('promotion')['min_order_amount'],0,",",".");?>
-đ
-                                <?php } else { ?>
-                                    <span style="color:#6b7280;">Không giới hạn</span>
-                                <?php }?>
-                            </td>
-                            <td style="padding:12px;">
-                                <?php echo $_smarty_tpl->getValue('promotion')['used_count'];?>
-
-                                <?php if ($_smarty_tpl->getValue('promotion')['usage_limit']) {?>
-                                    /<?php echo $_smarty_tpl->getValue('promotion')['usage_limit'];?>
-
-                                <?php }?>
-                            </td>
+                            <td style="padding:12px;"><?php echo (($tmp = $_smarty_tpl->getValue('promotion')['used_count'] ?? null)===null||$tmp==='' ? 0 ?? null : $tmp);?>
+</td>
                             <td style="padding:12px;">
                                 <?php if ($_smarty_tpl->getValue('promotion')['is_active']) {?>
                                     <span style="background:#dcfce7; color:#166534; padding:4px 8px; border-radius:4px; font-size:0.85em;">Hoạt động</span>
@@ -169,7 +154,7 @@ $foreach0DoElse = false;
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php } else { ?>
                     <tr>
-                        <td colspan="8" style="padding:40px; text-align:center; color:#6b7280;">
+                        <td colspan="7" style="padding:40px; text-align:center; color:#6b7280;">
                             <i class="fa-solid fa-tags" style="font-size:2em; margin-bottom:16px; display:block;"></i>
                             Chưa có mã khuyến mãi nào
                         </td>

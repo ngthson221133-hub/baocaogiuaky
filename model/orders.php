@@ -105,7 +105,8 @@ class orders
                     COUNT(CASE WHEN status = 'confirmed' THEN 1 END) as confirmed_orders,
                     COUNT(CASE WHEN status = 'shipping' THEN 1 END) as shipping_orders,
                     COUNT(CASE WHEN status = 'delivered' THEN 1 END) as delivered_orders,
-                    COUNT(CASE WHEN status = 'cancelled' THEN 1 END) as cancelled_orders
+                    COUNT(CASE WHEN status = 'cancelled' THEN 1 END) as cancelled_orders,
+                    COUNT(CASE WHEN DATE(created_at) = CURDATE() THEN 1 END) as today_orders
                 FROM orders";
         
         $result = $db->executeQuery_list($sql);

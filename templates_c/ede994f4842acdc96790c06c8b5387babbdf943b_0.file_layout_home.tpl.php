@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-08-11 19:35:38
+/* Smarty version 5.5.1, created on 2025-08-16 03:56:00
   from 'file:C:\xampp\htdocs\itc_toi-main\templates\home\../layout_home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_689a29eabeb6b4_70404280',
+  'unifunc' => 'content_689fe53013b454_05477228',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede994f4842acdc96790c06c8b5387babbdf943b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home\\../layout_home.tpl',
-      1 => 1754933718,
+      1 => 1754934043,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_689a29eabeb6b4_70404280 (\Smarty\Template $_smarty_tpl) {
+function content_689fe53013b454_05477228 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 ?>
@@ -29,7 +29,7 @@ $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 <head>
     <meta charset="UTF-8">
     <title><?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1641583678689a29eabb4c48_26227440', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1660605856689fe53010d029_22856672', 'title');
 ?>
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -283,17 +283,17 @@ $_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1641583678689
 }
     </style>
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_612035135689a29eabbf245_12257694', 'extra_head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1582803704689fe530115df8_45216424', 'extra_head');
 ?>
 
 </head>
 <body style="background:#f8f8f8;min-height:100vh;">
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1718782800689a29eabc1867_99523899', 'menu');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1770952445689fe530117875_51761055', 'menu');
 ?>
 
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1162106136689a29eabdbb28_84466350', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1329945632689fe53012d674_67549162', 'content');
 ?>
 
     
@@ -659,7 +659,7 @@ function scrollToCategory(categoryId) {
 </body>
 </html> <?php }
 /* {block 'title'} */
-class Block_1641583678689a29eabb4c48_26227440 extends \Smarty\Runtime\Block
+class Block_1660605856689fe53010d029_22856672 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -669,7 +669,7 @@ Trang chủ - Trái Cây Tươi<?php
 }
 /* {/block 'title'} */
 /* {block 'extra_head'} */
-class Block_612035135689a29eabbf245_12257694 extends \Smarty\Runtime\Block
+class Block_1582803704689fe530115df8_45216424 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -677,7 +677,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'extra_head'} */
 /* {block 'menu'} */
-class Block_1718782800689a29eabc1867_99523899 extends \Smarty\Runtime\Block
+class Block_1770952445689fe530117875_51761055 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -738,7 +738,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'menu'} */
 /* {block 'content'} */
-class Block_1162106136689a29eabdbb28_84466350 extends \Smarty\Runtime\Block
+class Block_1329945632689fe53012d674_67549162 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';

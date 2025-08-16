@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-29 14:53:20
+/* Smarty version 5.5.1, created on 2025-08-16 04:00:06
   from 'file:templates/report/sales.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6888c440da6f33_18256039',
+  'unifunc' => 'content_689fe626628a32_03795188',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '71de3ac52d4dfb284900855bccd308968e70e2e4' => 
     array (
       0 => 'templates/report/sales.tpl',
-      1 => 1753783603,
+      1 => 1754933158,
       2 => 'file',
     ),
   ),
@@ -20,22 +20,22 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6888c440da6f33_18256039 (\Smarty\Template $_smarty_tpl) {
+function content_689fe626628a32_03795188 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\report';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, true);
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_4609976396888c440d7fa27_67672711', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_6758099689fe6265d1578_06718459', 'title');
 ?>
 
 <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_18618726186888c440d83dc9_10142759', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2091855988689fe6265da031_96615393', 'content');
 ?>
  <?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl, "../layout.tpl", $_smarty_current_dir);
 }
 /* {block 'title'} */
-class Block_4609976396888c440d7fa27_67672711 extends \Smarty\Runtime\Block
+class Block_6758099689fe6265d1578_06718459 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\report';
@@ -45,7 +45,7 @@ Báo cáo bán hàng<?php
 }
 /* {/block 'title'} */
 /* {block 'content'} */
-class Block_18618726186888c440d83dc9_10142759 extends \Smarty\Runtime\Block
+class Block_2091855988689fe6265da031_96615393 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\report';
@@ -55,9 +55,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\report';
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
         <h1 style="color:#1f2937; font-size:1.8em; font-weight:700; margin:0;"><i class="fa-solid fa-chart-line"></i> Báo cáo bán hàng</h1>
         <div style="display:flex; gap:12px;">
-            <a href="/itc_toi-main/index.php?controller=export&action=salesReport" style="background:#22c55e; color:#fff; border:none; border-radius:8px; padding:12px 20px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:8px; transition:background 0.3s;" onmouseover="this.style.background='#16a34a'" onmouseout="this.style.background='#22c55e'">
-                <i class="fa-solid fa-file-excel"></i> Xuất Excel
-            </a>
+            <!-- Export Excel removed for optimization -->
         </div>
     </div>
 <div class="stats-cards" style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 32px;">
