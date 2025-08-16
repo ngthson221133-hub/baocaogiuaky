@@ -422,6 +422,35 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+  
+  // Mở popup từ các link khác
+  var showLoginPopup = document.getElementById('showLoginPopup');
+  var showRegisterPopup = document.getElementById('showRegisterPopup');
+  var quickRegisterBtn = document.getElementById('quickRegisterBtn');
+  
+  if(showLoginPopup && loginPopup) {
+    showLoginPopup.addEventListener('click', function(e) {
+      e.preventDefault();
+      if(registerPopup) registerPopup.style.display = 'none';
+      loginPopup.style.display = 'flex';
+    });
+  }
+  
+  if(showRegisterPopup && registerPopup) {
+    showRegisterPopup.addEventListener('click', function(e) {
+      e.preventDefault();
+      if(loginPopup) loginPopup.style.display = 'none';
+      registerPopup.style.display = 'flex';
+    });
+  }
+  
+  if(quickRegisterBtn && registerPopup) {
+    quickRegisterBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if(loginPopup) loginPopup.style.display = 'none';
+      registerPopup.style.display = 'flex';
+    });
+  }
 
   // AJAX login
   var loginForm = document.getElementById('loginForm');
@@ -538,25 +567,7 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
   <div style="text-align:center;color:#b2f5ea;font-size:14px;padding:12px 0 8px 0;">© 2025 TRAI CAY SHOP. All rights reserved.</div>
 </footer>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Load số lượng giỏ hàng
-  loadCartCount();
-  
-  var userIcon = document.getElementById('userIcon');
-  var userDropdown = document.getElementById('userDropdownMenu');
-  if(userIcon && userDropdown) {
-    userIcon.onclick = function(e) {
-      e.stopPropagation();
-      userDropdown.style.display = (userDropdown.style.display === 'block') ? 'none' : 'block';
-    };
-    document.addEventListener('click', function(e) {
-      if(userDropdown.style.display === 'block' && !userDropdown.contains(e.target) && e.target !== userIcon) {
-        userDropdown.style.display = 'none';
-      }
-    });
-  }
-});
+
 
 // Function load số lượng giỏ hàng
 function loadCartCount() {
