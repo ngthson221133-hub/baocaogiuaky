@@ -108,8 +108,8 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $smarty->assign('total_orders', $total_orders);
     $smarty->assign('total_revenue', $total_revenue);
     
-    // Hiển thị template
-    $smarty->display('admin/index.tpl');
+    // Hiển thị template dashboard
+    $smarty->display('admin/dashboard.tpl');
     exit();
 } else {
     // Xử lý danh sách users (action mặc định)
