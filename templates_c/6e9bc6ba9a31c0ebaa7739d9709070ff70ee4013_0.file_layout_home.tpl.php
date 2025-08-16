@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-29 14:49:30
+/* Smarty version 5.5.1, created on 2025-08-16 04:05:03
   from 'file:C:\xampp\htdocs\itc_toi-main\templates\checkout\../layout_home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6888c35a9606f0_27540104',
+  'unifunc' => 'content_689fe74ff040d6_49781930',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6e9bc6ba9a31c0ebaa7739d9709070ff70ee4013' => 
     array (
       0 => 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\checkout\\../layout_home.tpl',
-      1 => 1753775836,
+      1 => 1754934043,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6888c35a9606f0_27540104 (\Smarty\Template $_smarty_tpl) {
+function content_689fe74ff040d6_49781930 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 ?>
@@ -29,7 +29,7 @@ $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 <head>
     <meta charset="UTF-8">
     <title><?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_17572810706888c35a94c249_14764093', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_497908792689fe74fee63b0_10845099', 'title');
 ?>
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -283,17 +283,17 @@ $_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1757281070688
 }
     </style>
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_18876126446888c35a950167_63657153', 'extra_head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1495632030689fe74fef0626_54391100', 'extra_head');
 ?>
 
 </head>
 <body style="background:#f8f8f8;min-height:100vh;">
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1645149886888c35a951338_35787942', 'menu');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_804393022689fe74fef10a2_75390695', 'menu');
 ?>
 
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_3615153416888c35a95bf77_42072555', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1715327360689fe74fefb5a5_09730839', 'content');
 ?>
 
     
@@ -482,17 +482,22 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Function load số lượng giỏ hàng
   function loadCartCount() {
-    fetch('/itc_toi-main/index.php?controller=cart_guest&action=getCount')
-    .then(response => response.json())
-    .then(data => {
+    const isLoggedIn = document.querySelector('.welcome-user') !== null || <?php echo (($tmp = $_SESSION['username'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp);?>
+ !== '';
+    if (isLoggedIn) {
+      fetch('/itc_toi-main/index.php?controller=cart&action=getCount')
+      .then(response => response.json())
+      .then(data => {
+        const cartCountElements = document.querySelectorAll('.cart-count');
+        cartCountElements.forEach(element => {
+          element.textContent = data.count || 0;
+        });
+      })
+      .catch(() => {});
+    } else {
       const cartCountElements = document.querySelectorAll('.cart-count');
-      cartCountElements.forEach(element => {
-        element.textContent = data.count || 0;
-      });
-    })
-    .catch(error => {
-      console.error('Error loading cart count:', error);
-    });
+      cartCountElements.forEach(element => { element.textContent = 0; });
+    }
   }
 <?php echo '</script'; ?>
 >
@@ -654,7 +659,7 @@ function scrollToCategory(categoryId) {
 </body>
 </html> <?php }
 /* {block 'title'} */
-class Block_17572810706888c35a94c249_14764093 extends \Smarty\Runtime\Block
+class Block_497908792689fe74fee63b0_10845099 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -664,7 +669,7 @@ Trang chủ - Trái Cây Tươi<?php
 }
 /* {/block 'title'} */
 /* {block 'extra_head'} */
-class Block_18876126446888c35a950167_63657153 extends \Smarty\Runtime\Block
+class Block_1495632030689fe74fef0626_54391100 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -672,7 +677,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'extra_head'} */
 /* {block 'menu'} */
-class Block_1645149886888c35a951338_35787942 extends \Smarty\Runtime\Block
+class Block_804393022689fe74fef10a2_75390695 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -708,7 +713,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
               <span class="cart-count" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:18px;height:18px;font-size:0.7em;display:flex;align-items:center;justify-content:center;font-weight:600;">0</span>
           </a>
         <?php } else { ?>
-          <a href="/itc_toi-main/index.php?controller=cart_guest&action=view" style="color:inherit;text-decoration:none;position:relative;">
+          <a href="/itc_toi-main/index.php?controller=user&action=login" style="color:inherit;text-decoration:none;position:relative;">
               <i class="fas fa-shopping-cart"></i>
               <span class="cart-count" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:white;border-radius:50%;width:18px;height:18px;font-size:0.7em;display:flex;align-items:center;justify-content:center;font-weight:600;">0</span>
           </a>
@@ -733,7 +738,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'menu'} */
 /* {block 'content'} */
-class Block_3615153416888c35a95bf77_42072555 extends \Smarty\Runtime\Block
+class Block_1715327360689fe74fefb5a5_09730839 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';

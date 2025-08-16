@@ -79,7 +79,12 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $message = $ok ? 'Xóa thành công!' : 'Xóa thất bại!';
     header('Location: /itc_toi-main/index.php?controller=admin&action=index&msg='.urlencode($message));
     exit();
+} elseif ($actionName == 'index') {
+    // Hiển thị dashboard admin
+    $smarty->assign('mainContent', 'admin/index.tpl');
+    $smarty->assign('pageTitle', 'Admin Dashboard');
 } else {
+    // Xử lý danh sách users (action mặc định)
     $q = isset($_GET['q']) ? trim($_GET['q']) : '';
     $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
     $limit = 10;
@@ -104,5 +109,6 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     $smarty->assign('q', $q);
     $smarty->assign('page', $page);
     $smarty->assign('total_pages', $total_pages);
-    // KHÔNG gọi $smarty->display ở đây!
+    $smarty->assign('mainContent', 'admin/users.tpl');
+    $smarty->assign('pageTitle', 'Quản lý người dùng');
 } 

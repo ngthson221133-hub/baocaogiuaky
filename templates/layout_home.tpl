@@ -476,12 +476,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('login-message').innerText = res.message || 'Có lỗi xảy ra. Vui lòng thử lại.';
               }
             } catch(e) {
-              // Nếu không phải JSON (tức là HTML), thì chuyển hướng sang admin (nếu là admin) hoặc sang welcome cho user
+              // Nếu không phải JSON, kiểm tra response text để xác định redirect
+              var responseText = xhr.responseText.toLowerCase();
               var email = document.getElementById('login_email').value;
-              if(email === 'admin') {
+              
+              // Kiểm tra nếu có redirect trong response
+              if(responseText.includes('admin') || responseText.includes('dashboard')) {
                 window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
-              } else {
+              } else if(responseText.includes('welcome') || responseText.includes('user')) {
                 window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
+              } else {
+                // Nếu không có redirect, reload trang để kiểm tra session
+                window.location.reload();
               }
             }
           } else {
