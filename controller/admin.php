@@ -83,6 +83,34 @@ if ($actionName == 'add' && $_SERVER['REQUEST_METHOD'] === 'GET') {
     // Hiển thị dashboard admin
     $smarty->assign('mainContent', 'admin/index.tpl');
     $smarty->assign('pageTitle', 'Admin Dashboard');
+    
+    // Gán dữ liệu cho dashboard
+    global $db;
+    
+    // Số lượng users
+    $total_users = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM users');
+    $total_users = isset($total_users[0]['cnt']) ? $total_users[0]['cnt'] : 0;
+    
+    // Số lượng products
+    $total_products = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM products');
+    $total_products = isset($total_products[0]['cnt']) ? $total_products[0]['cnt'] : 0;
+    
+    // Số lượng orders
+    $total_orders = $db->executeQuery_list('SELECT COUNT(*) as cnt FROM orders');
+    $total_orders = isset($total_orders[0]['cnt']) ? $total_orders[0]['cnt'] : 0;
+    
+    // Tổng doanh thu
+    $total_revenue = $db->executeQuery_list('SELECT SUM(total_amount) as total FROM orders WHERE status = "delivered"');
+    $total_revenue = isset($total_revenue[0]['total']) ? $total_revenue[0]['total'] : 0;
+    
+    $smarty->assign('total_users', $total_users);
+    $smarty->assign('total_products', $total_products);
+    $smarty->assign('total_orders', $total_orders);
+    $smarty->assign('total_revenue', $total_revenue);
+    
+    // Hiển thị template
+    $smarty->display('admin/index.tpl');
+    exit();
 } else {
     // Xử lý danh sách users (action mặc định)
     $q = isset($_GET['q']) ? trim($_GET['q']) : '';

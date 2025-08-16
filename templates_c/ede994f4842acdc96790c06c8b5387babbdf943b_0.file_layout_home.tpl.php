@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-08-16 04:12:58
+/* Smarty version 5.5.1, created on 2025-08-16 04:19:00
   from 'file:C:\xampp\htdocs\itc_toi-main\templates\home\../layout_home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_689fe92abf7ce1_87821038',
+  'unifunc' => 'content_689fea94c08e39_14841555',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ede994f4842acdc96790c06c8b5387babbdf943b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\itc_toi-main\\templates\\home\\../layout_home.tpl',
-      1 => 1755310370,
+      1 => 1755310736,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_689fe92abf7ce1_87821038 (\Smarty\Template $_smarty_tpl) {
+function content_689fea94c08e39_14841555 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 ?>
@@ -29,7 +29,7 @@ $_smarty_tpl->getInheritance()->init($_smarty_tpl, false);
 <head>
     <meta charset="UTF-8">
     <title><?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1038375279689fe92abc4d84_93467935', 'title');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1850545317689fea94bdbe86_96779294', 'title');
 ?>
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -283,17 +283,17 @@ $_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1038375279689
 }
     </style>
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1537746748689fe92abd15a9_07944646', 'extra_head');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_551764284689fea94be6556_46282020', 'extra_head');
 ?>
 
 </head>
 <body style="background:#f8f8f8;min-height:100vh;">
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_2128741595689fe92abd24d7_49244473', 'menu');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1593305187689fea94be72b5_50687655', 'menu');
 ?>
 
     <?php 
-$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1885035050689fe92abe03d7_91192049', 'content');
+$_smarty_tpl->getInheritance()->instanceBlock($_smarty_tpl, 'Block_1207928029689fea94bf9325_25907023', 'content');
 ?>
 
     
@@ -445,9 +445,10 @@ document.addEventListener('DOMContentLoaded', function() {
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
       var formData = new FormData(loginForm);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', loginForm.action, true);
-      xhr.onreadystatechange = function() {
+             var xhr = new XMLHttpRequest();
+       xhr.open('POST', loginForm.action, true);
+       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+       xhr.onreadystatechange = function() {
         if(xhr.readyState === 4) {
           if(xhr.status === 200) {
             try {
@@ -462,15 +463,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('login-message').style.display = 'block';
                 document.getElementById('login-message').innerText = res.message || 'Có lỗi xảy ra. Vui lòng thử lại.';
               }
-            } catch(e) {
-              // Nếu không phải JSON (tức là HTML), thì chuyển hướng sang admin (nếu là admin) hoặc sang welcome cho user
-              var email = document.getElementById('login_email').value;
-              if(email === 'admin') {
-                window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
-              } else {
-                window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
-              }
-            }
+                         } catch(e) {
+               // Nếu không phải JSON, kiểm tra email để xác định redirect
+               var email = document.getElementById('login_email').value;
+               
+               // Kiểm tra nếu là admin
+               if(email === 'admin') {
+                 window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
+               } else {
+                 // Nếu là user thường, chuyển hướng đến welcome
+                 window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
+               }
+             }
           } else {
             document.getElementById('login-message').style.display = 'block';
             document.getElementById('login-message').innerText = 'Có lỗi xảy ra. Vui lòng thử lại.';
@@ -669,7 +673,7 @@ function scrollToCategory(categoryId) {
 </body>
 </html> <?php }
 /* {block 'title'} */
-class Block_1038375279689fe92abc4d84_93467935 extends \Smarty\Runtime\Block
+class Block_1850545317689fea94bdbe86_96779294 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -679,7 +683,7 @@ Trang chủ - Trái Cây Tươi<?php
 }
 /* {/block 'title'} */
 /* {block 'extra_head'} */
-class Block_1537746748689fe92abd15a9_07944646 extends \Smarty\Runtime\Block
+class Block_551764284689fea94be6556_46282020 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -687,7 +691,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'extra_head'} */
 /* {block 'menu'} */
-class Block_2128741595689fe92abd24d7_49244473 extends \Smarty\Runtime\Block
+class Block_1593305187689fea94be72b5_50687655 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
@@ -748,7 +752,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
 }
 /* {/block 'menu'} */
 /* {block 'content'} */
-class Block_1885035050689fe92abe03d7_91192049 extends \Smarty\Runtime\Block
+class Block_1207928029689fea94bf9325_25907023 extends \Smarty\Runtime\Block
 {
 public function callBlock(\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\itc_toi-main\\templates';
