@@ -485,13 +485,13 @@ document.addEventListener('DOMContentLoaded', function() {
                if(responseText.includes('admin') || responseText.includes('dashboard')) {
                  window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
                } else if(responseText.includes('welcome') || responseText.includes('user')) {
-                 window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
+                 window.location.href = '/itc_toi-main/index.php?controller=user&action=dashboard';
                } else {
                  // Nếu không có redirect, kiểm tra email để xác định role
                  if(email === 'admin') {
                    window.location.href = '/itc_toi-main/index.php?controller=admin&action=index';
                  } else {
-                   window.location.href = '/itc_toi-main/index.php?controller=user&action=welcome&login_success=1';
+                   window.location.href = '/itc_toi-main/index.php?controller=user&action=dashboard';
                  }
                }
              }

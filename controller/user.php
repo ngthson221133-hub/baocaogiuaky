@@ -56,6 +56,50 @@ if( (isset($_GET['controller']) && $_GET['controller'] == 'user' && isset($_GET[
         // Hiển thị form login (nếu cần)
         // ... existing code ...
     }
+} elseif( isset($_GET['controller']) && $_GET['controller'] == 'user' && isset($_GET['action']) && $_GET['action'] == 'dashboard' ) {
+    if( !isset($_SESSION['email']) || empty($_SESSION['email']) ) {
+        echo "Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.";
+        header("Location: /itc_toi-main/index.php?controller=user&action=login");
+        exit();
+    }
+    
+    // Gán dữ liệu cho dashboard user
+    global $db;
+    
+    // Số lượng đơn hàng của user
+    $user_id = $_SESSION['user_id'];
+    $total_orders = $db->executeQuery_list("SELECT COUNT(*) as cnt FROM orders WHERE user_id = $user_id");
+    $total_orders = isset($total_orders[0]['cnt']) ? $total_orders[0]['cnt'] : 0;
+    
+    // Số lượng sản phẩm đã mua
+    $total_products = $db->executeQuery_list("SELECT COUNT(DISTINCT product_id) as cnt FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = $user_id");
+    $total_products = isset($total_products[0]['cnt']) ? $total_products[0]['cnt'] : 0;
+    
+    // Số lượng sản phẩm trong giỏ hàng
+    $cart_count = $db->executeQuery_list("SELECT COUNT(*) as cnt FROM cart WHERE user_id = $user_id");
+    $cart_count = isset($cart_count[0]['cnt']) ? $cart_count[0]['cnt'] : 0;
+    
+    // Tổng chi tiêu
+    $total_spent = $db->executeQuery_list("SELECT SUM(total_amount) as total FROM orders WHERE user_id = $user_id AND status = 'delivered'");
+    $total_spent = isset($total_spent[0]['total']) ? $total_spent[0]['total'] : 0;
+    
+    // Đơn hàng gần đây
+    $recent_orders = $db->executeQuery_list("SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at DESC LIMIT 5");
+    
+    // Sản phẩm nổi bật (lấy 6 sản phẩm đầu tiên)
+    $featured_products = $db->executeQuery_list("SELECT * FROM products ORDER BY id DESC LIMIT 6");
+    
+    $smarty->assign('total_orders', $total_orders);
+    $smarty->assign('total_products', $total_products);
+    $smarty->assign('cart_count', $cart_count);
+    $smarty->assign('total_spent', $total_spent);
+    $smarty->assign('recent_orders', $recent_orders);
+    $smarty->assign('featured_products', $featured_products);
+    
+    // Hiển thị template dashboard
+    $smarty->display('user/dashboard.tpl');
+    exit();
+    
 } elseif( isset($_GET['controller']) && $_GET['controller'] == 'user' && isset($_GET['action']) && $_GET['action'] == 'welcome' ) {
     if( !isset($_SESSION['email']) || empty($_SESSION['email']) ) {
         echo "Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.";
